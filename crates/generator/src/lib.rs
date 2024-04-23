@@ -35,9 +35,13 @@ impl PrismaGenerator for Generator {
     fn generate(self, args: GenerateArgs) -> Result<Module, Self::Error> {
         let header = header::generate(&args);
 
+        let module_path = if self.module_path.starts_with("crate::") || self.module_path.starts_with("::") {
+            self.module_path.clone()
+        } else {
+            format!("crate::{}", self.module_path)
+        };
         let module_path = {
-            let provided: TokenStream = self
-                .module_path
+            let provided: TokenStream = module_path
                 .parse()
                 .map_err(|_| Error::InvalidModulePath)?;
 
