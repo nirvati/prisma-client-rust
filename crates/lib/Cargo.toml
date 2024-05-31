@@ -48,7 +48,7 @@ user-facing-errors = { workspace = true }
 psl = { workspace = true }
 diagnostics = { workspace = true }
 request-handlers = { workspace = true }
-query-core = { workspace = true }
+query-core = { workspace = true, features = ["graphql-protocol"] }
 
 # features = "migrations"
 schema-core = { workspace = true, optional = true }

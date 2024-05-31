@@ -26,6 +26,6 @@ thiserror = "1.0.37"
 
 query-structure = { workspace = true }
 request-handlers = { workspace = true }
-query-core = { workspace = true }
+query-core = { workspace = true, features = ["graphql-protocol"] }
 dmmf = { workspace = true }
 psl = { workspace = true }
