@@ -1,6 +1,6 @@
 use prisma_client_rust_sdk::{
     prelude::*,
-    prisma::prisma_models::{
+    prisma::query_structure::{
         walkers::{FieldWalker, RefinedFieldWalker},
         FieldArity,
     },

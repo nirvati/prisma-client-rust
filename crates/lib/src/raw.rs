@@ -28,7 +28,7 @@ impl Raw {
             values: values
                 .into_iter()
                 .map(|v| match v.into() {
-                    prisma_models::PrismaValue::DateTime(dt) => json!({
+                    query_structure::PrismaValue::DateTime(dt) => json!({
                         "prisma__type": "date",
                         "prisma__value": dt.to_rfc3339_opts(SecondsFormat::Millis, true)
                     }),

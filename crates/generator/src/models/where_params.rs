@@ -1,5 +1,5 @@
 use prisma_client_rust_sdk::prisma::{
-    prisma_models::{
+    query_structure::{
         walkers::{FieldWalker, ModelWalker, RefinedFieldWalker, ScalarFieldWalker},
         FieldArity,
     },

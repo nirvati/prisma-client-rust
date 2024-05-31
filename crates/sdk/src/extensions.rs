@@ -1,8 +1,8 @@
 use dmmf::{DmmfTypeReference, TypeLocation};
-use prisma_models::walkers::{
+use query_structure::walkers::{
     CompositeTypeFieldWalker, FieldWalker, ModelWalker, RefinedFieldWalker, ScalarFieldWalker,
 };
-use prisma_models::FieldArity;
+use query_structure::FieldArity;
 use psl::parser_database::{ParserDatabase, ScalarFieldType, ScalarType};
 
 use crate::prelude::*;
@@ -273,7 +273,7 @@ impl DmmfTypeReferenceExt for DmmfTypeReference {
     ) -> Option<TokenStream> {
         Some(match self.location {
             TypeLocation::Scalar => {
-                ScalarFieldType::BuiltInScalar(ScalarType::try_from_str(&self.typ).unwrap())
+                ScalarFieldType::BuiltInScalar(ScalarType::try_from_str(&self.typ, false).unwrap())
                     .to_tokens(prefix, arity, db)?
             }
             TypeLocation::EnumTypes => {

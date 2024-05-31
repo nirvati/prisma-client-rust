@@ -2,7 +2,7 @@ use std::collections::BTreeMap;
 
 use prisma_client_rust_sdk::prisma::{
     dmmf::TypeLocation,
-    prisma_models::{walkers::ModelWalker, FieldArity},
+    query_structure::{walkers::ModelWalker, FieldArity},
 };
 
 use crate::prelude::*;

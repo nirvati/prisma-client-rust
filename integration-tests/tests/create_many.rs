@@ -1,10 +1,6 @@
 use crate::db::*;
 use crate::utils::*;
 
-/// Using create_many with SQLite is currently unstable
-/// Enabling the CLI's `sqlite-create-many` is unsafe and
-/// could cause problems
-
 #[tokio::test]
 async fn basic() -> TestResult {
     let client = client().await;

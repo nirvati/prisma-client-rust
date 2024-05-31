@@ -104,7 +104,7 @@ pub trait ModelQuery<'a>: Query<'a> {
             None,
             arguments
                 .into_iter()
-                .map(|(k, v)| (k, prisma_models::PrismaValue::from(v).into()))
+                .map(|(k, v)| (k, query_structure::PrismaValue::from(v).into()))
                 .collect::<Vec<_>>(),
             nested_selections.into_iter().collect::<Vec<_>>(),
         )

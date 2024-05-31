@@ -1,5 +1,5 @@
 use prisma_client_rust_sdk::prisma::{
-    prisma_models::walkers::ModelWalker, psl::parser_database::ScalarFieldType,
+    query_structure::walkers::ModelWalker, psl::parser_database::ScalarFieldType,
 };
 
 use crate::prelude::*;

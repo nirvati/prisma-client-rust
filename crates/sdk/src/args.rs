@@ -1,4 +1,4 @@
-use prisma_models::{walkers::ScalarFieldWalker, FieldArity};
+use query_structure::{walkers::ScalarFieldWalker, FieldArity};
 use psl::{
     builtin_connectors,
     datamodel_connector::Connector,
@@ -37,7 +37,7 @@ impl<'a> GenerateArgs<'a> {
                 scalar.fields.iter().flat_map(|field| {
                     field.input_types.iter().flat_map(|input| {
                         matches!(input.location, TypeLocation::Scalar)
-                            .then(|| ScalarType::try_from_str(&input.typ))
+                            .then(|| ScalarType::try_from_str(&input.typ, false))
                             .flatten()
                     })
                 })
@@ -281,7 +281,7 @@ impl<'a> GenerateArgs<'a> {
             p if SQLITE.is_provider(p) => SQLITE,
             #[cfg(feature = "postgresql")]
             p if POSTGRES.is_provider(p) => POSTGRES,
-            #[cfg(feature = "postgresql")]
+            #[cfg(feature = "cockroachdb")]
             p if COCKROACH.is_provider(p) => COCKROACH,
             #[cfg(feature = "mssql")]
             p if MSSQL.is_provider(p) => MSSQL,
@@ -387,7 +387,7 @@ impl DmmfInputFieldExt for DmmfInputField {
 
         match input_type.location {
             TypeLocation::Scalar => arity.wrap_type(
-                &ScalarType::try_from_str(&input_type.typ)
+                &ScalarType::try_from_str(&input_type.typ, false)
                     .unwrap()
                     .to_tokens(),
             ),
@@ -417,7 +417,7 @@ impl DmmfInputFieldExt for DmmfInputField {
         match input_type.location {
             TypeLocation::Scalar => arity.wrap_pv(
                 var,
-                ScalarType::try_from_str(&input_type.typ)
+                ScalarType::try_from_str(&input_type.typ, false)
                     .unwrap()
                     .to_prisma_value(var),
             ),

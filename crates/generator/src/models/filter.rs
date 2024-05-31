@@ -1,5 +1,5 @@
 use prisma_client_rust_generator_shared::select_include::SelectableFields;
-use prisma_client_rust_sdk::prisma::prisma_models::walkers::ModelWalker;
+use prisma_client_rust_sdk::prisma::query_structure::walkers::ModelWalker;
 
 use crate::prelude::*;
 

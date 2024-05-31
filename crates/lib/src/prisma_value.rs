@@ -73,24 +73,24 @@ where
     Option::<()>::None.serialize(serializer)
 }
 
-impl From<prisma_models::PrismaValue> for PrismaValue {
-    fn from(value: prisma_models::PrismaValue) -> Self {
+impl From<query_structure::PrismaValue> for PrismaValue {
+    fn from(value: query_structure::PrismaValue) -> Self {
         match value {
-            prisma_models::PrismaValue::String(value) => Self::String(value),
-            prisma_models::PrismaValue::Boolean(value) => Self::Boolean(value),
-            prisma_models::PrismaValue::Enum(value) => Self::Enum(value),
-            prisma_models::PrismaValue::Int(value) => Self::Int(value as i32),
-            prisma_models::PrismaValue::Uuid(value) => Self::Uuid(value),
-            prisma_models::PrismaValue::List(value) => {
+            query_structure::PrismaValue::String(value) => Self::String(value),
+            query_structure::PrismaValue::Boolean(value) => Self::Boolean(value),
+            query_structure::PrismaValue::Enum(value) => Self::Enum(value),
+            query_structure::PrismaValue::Int(value) => Self::Int(value as i32),
+            query_structure::PrismaValue::Uuid(value) => Self::Uuid(value),
+            query_structure::PrismaValue::List(value) => {
                 Self::List(value.into_iter().map(Into::into).collect())
             }
-            prisma_models::PrismaValue::Json(value) => {
+            query_structure::PrismaValue::Json(value) => {
                 Self::Json(serde_json::from_str(&value).unwrap())
             }
-            prisma_models::PrismaValue::Object(mut value) => {
+            query_structure::PrismaValue::Object(mut value) => {
                 let type_position = value.iter().position(|(k, _)| k == custom_types::TYPE);
 
-                if let Some((_, prisma_models::PrismaValue::String(typ))) =
+                if let Some((_, query_structure::PrismaValue::String(typ))) =
                     type_position.map(|pos| value.swap_remove(pos))
                 {
                     let (_, value) = value.swap_remove(
@@ -101,19 +101,19 @@ impl From<prisma_models::PrismaValue> for PrismaValue {
                     );
 
                     match (typ.as_str(), value) {
-                        (custom_types::DATETIME, prisma_models::PrismaValue::DateTime(dt)) => {
+                        (custom_types::DATETIME, query_structure::PrismaValue::DateTime(dt)) => {
                             PrismaValue::DateTime(dt)
                         }
-                        (custom_types::BIGINT, prisma_models::PrismaValue::BigInt(i)) => {
+                        (custom_types::BIGINT, query_structure::PrismaValue::BigInt(i)) => {
                             PrismaValue::BigInt(i)
                         }
-                        (custom_types::DECIMAL, prisma_models::PrismaValue::String(s)) => {
+                        (custom_types::DECIMAL, query_structure::PrismaValue::String(s)) => {
                             PrismaValue::Decimal(BigDecimal::from_str(&s).unwrap())
                         }
-                        (custom_types::BYTES, prisma_models::PrismaValue::Bytes(b)) => {
+                        (custom_types::BYTES, query_structure::PrismaValue::Bytes(b)) => {
                             PrismaValue::Bytes(b)
                         }
-                        (custom_types::JSON, prisma_models::PrismaValue::Json(j)) => {
+                        (custom_types::JSON, query_structure::PrismaValue::Json(j)) => {
                             PrismaValue::Json(serde_json::from_str(&j).unwrap())
                         }
                         _ => unreachable!("Incorrect PrismaValue for {typ}"),
@@ -122,16 +122,16 @@ impl From<prisma_models::PrismaValue> for PrismaValue {
                     Self::Object(value.into_iter().map(|(k, v)| (k, v.into())).collect())
                 }
             }
-            prisma_models::PrismaValue::Null => Self::Null,
-            prisma_models::PrismaValue::DateTime(value) => Self::DateTime(value),
-            prisma_models::PrismaValue::Float(value) => Self::Float(value.to_f64().unwrap()),
-            prisma_models::PrismaValue::BigInt(value) => Self::BigInt(value),
-            prisma_models::PrismaValue::Bytes(value) => Self::Bytes(value),
+            query_structure::PrismaValue::Null => Self::Null,
+            query_structure::PrismaValue::DateTime(value) => Self::DateTime(value),
+            query_structure::PrismaValue::Float(value) => Self::Float(value.to_f64().unwrap()),
+            query_structure::PrismaValue::BigInt(value) => Self::BigInt(value),
+            query_structure::PrismaValue::Bytes(value) => Self::Bytes(value),
         }
     }
 }
 
-impl From<PrismaValue> for prisma_models::PrismaValue {
+impl From<PrismaValue> for query_structure::PrismaValue {
     fn from(val: PrismaValue) -> Self {
         match val {
             PrismaValue::String(value) => Self::String(value),

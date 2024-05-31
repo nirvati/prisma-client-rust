@@ -26,7 +26,7 @@ use crate::prelude::snake_ident;
 
 pub mod prisma {
     pub use dmmf;
-    pub use prisma_models;
+    pub use query_structure;
     pub use psl;
     pub use query_core;
     pub use request_handlers;

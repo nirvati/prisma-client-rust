@@ -1,6 +1,6 @@
 use crate::prelude::{prisma::psl::datamodel_connector, *};
 use prisma_client_rust_sdk::{
-    prisma::{prisma_models::walkers::ModelWalker, psl::parser_database::ScalarFieldType},
+    prisma::{query_structure::walkers::ModelWalker, psl::parser_database::ScalarFieldType},
     GenerateArgs,
 };
 

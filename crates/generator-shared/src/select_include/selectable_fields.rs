@@ -1,4 +1,4 @@
-use prisma_client_rust_sdk::prisma::prisma_models::walkers::FieldWalker;
+use prisma_client_rust_sdk::prisma::query_structure::walkers::FieldWalker;
 use proc_macro2::TokenStream;
 use quote::*;
 use syn::{

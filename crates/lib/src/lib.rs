@@ -27,7 +27,7 @@ use std::collections::HashMap;
 
 pub use bigdecimal;
 pub use chrono;
-pub use prisma_models;
+pub use query_structure;
 pub use prisma_value::PrismaValue;
 pub use psl;
 pub use query_core;

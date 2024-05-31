@@ -16,7 +16,7 @@ use std::collections::BTreeMap;
 use prisma_client_rust_sdk::{
     prelude::*,
     prisma::{
-        prisma_models::walkers::{FieldWalker, ModelWalker, RefinedFieldWalker},
+        query_structure::walkers::{FieldWalker, ModelWalker, RefinedFieldWalker},
         psl::parser_database::ScalarFieldType,
     },
 };

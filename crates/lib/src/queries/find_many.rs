@@ -310,7 +310,7 @@ impl<Actions: ModelTypes> ManyArgs<Actions> {
         ]
         .into_iter()
         .flatten()
-        .map(|(k, v)| (k, prisma_models::PrismaValue::from(v).into()))
+        .map(|(k, v)| (k, query_structure::PrismaValue::from(v).into()))
         .collect();
 
         let nested_selections = (self.with_params.len() > 0)

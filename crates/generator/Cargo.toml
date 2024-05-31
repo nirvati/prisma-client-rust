@@ -9,7 +9,6 @@ rust-version = "1.62"
 specta = []
 rspc = ["specta"]
 migrations = []
-sqlite-create-many = ["prisma-client-rust-sdk/sqlite-create-many"]
 # mutation-callbacks = []
 mocking = []
 

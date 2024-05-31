@@ -6,14 +6,13 @@ edition = "2021"
 rust-version = "1.62"
 
 [features]
-mysql = ["request-handlers/mysql"]
-sqlite = ["request-handlers/sqlite"]
-mssql = ["request-handlers/mssql"]
-postgresql = ["request-handlers/postgresql"]
+mysql = ["request-handlers/mysql-native"]
+sqlite = ["request-handlers/sqlite-native"]
+mssql = ["request-handlers/mssql-native"]
+postgresql = ["request-handlers/postgresql-native"]
+cockroachdb = ["request-handlers/cockroachdb-native"]
 
 mongodb = ["request-handlers/mongodb"]
-
-sqlite-create-many = ["psl/sqlite-create-many"]
 
 [dependencies]
 serde_json.workspace = true
@@ -25,7 +24,7 @@ syn = "1.0.91"
 proc-macro2 = "1.0.39"
 thiserror = "1.0.37"
 
-prisma-models = { workspace = true }
+query-structure = { workspace = true }
 request-handlers = { workspace = true }
 query-core = { workspace = true }
 dmmf = { workspace = true }

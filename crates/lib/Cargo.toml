@@ -10,7 +10,6 @@ rust-version = "1.62"
 default = []
 rspc = ["dep:rspc", "specta"]
 specta = ["dep:specta", "prisma-client-rust-generator-macros/specta"]
-sqlite-create-many = ["psl/sqlite-create-many"]
 migrations = [
   "schema-core",
   "dep:include_dir",
@@ -44,7 +43,7 @@ futures = "0.3"
 paste = "1.0.11"
 prisma-client-rust-generator-macros = { path = "../generator-macros" }
 
-prisma-models = { workspace = true }
+query-structure = { workspace = true }
 user-facing-errors = { workspace = true }
 psl = { workspace = true }
 diagnostics = { workspace = true }

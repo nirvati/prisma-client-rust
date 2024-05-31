@@ -1,6 +1,6 @@
 use prisma_client_rust_sdk::prisma::{
     dmmf::TypeLocation,
-    prisma_models::{walkers::CompositeTypeWalker, FieldArity},
+    query_structure::{walkers::CompositeTypeWalker, FieldArity},
     psl::parser_database::ScalarFieldType,
 };
 

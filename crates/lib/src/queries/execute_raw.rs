@@ -1,4 +1,4 @@
-use prisma_models::PrismaValue;
+use query_structure::PrismaValue;
 use query_core::{Operation, Selection};
 use serde_json::Value;
 

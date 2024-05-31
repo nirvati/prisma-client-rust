@@ -1,4 +1,4 @@
-use prisma_client_rust_sdk::prisma::prisma_models::{
+use prisma_client_rust_sdk::prisma::query_structure::{
     walkers::{ModelWalker, RelationFieldWalker},
     FieldArity,
 };

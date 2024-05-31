@@ -1,5 +1,5 @@
 use prisma_client_rust_generator_shared::select_include::{SelectableFields, Variant};
-use prisma_client_rust_sdk::prisma::prisma_models::{
+use prisma_client_rust_sdk::prisma::query_structure::{
     walkers::{FieldWalker, ModelWalker, RefinedFieldWalker},
     FieldArity,
 };
@@ -221,7 +221,7 @@ fn model_module_enum(model: ModelWalker, variant: Variant) -> TokenStream {
 }
 
 pub mod include {
-    use prisma_client_rust_sdk::prisma::prisma_models::walkers::{ModelWalker, RefinedFieldWalker};
+    use prisma_client_rust_sdk::prisma::query_structure::walkers::{ModelWalker, RefinedFieldWalker};
 
     use crate::models::ModelModulePart;
 
@@ -257,7 +257,7 @@ pub mod include {
 }
 
 pub mod select {
-    use prisma_client_rust_sdk::prisma::prisma_models::walkers::ModelWalker;
+    use prisma_client_rust_sdk::prisma::query_structure::walkers::ModelWalker;
 
     use crate::models::ModelModulePart;
 

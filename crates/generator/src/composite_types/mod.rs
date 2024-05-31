@@ -7,7 +7,7 @@ use std::collections::BTreeMap;
 
 use prisma_client_rust_sdk::{
     prelude::*,
-    prisma::{prisma_models::walkers::CompositeTypeWalker, psl::parser_database::ScalarFieldType},
+    prisma::{query_structure::walkers::CompositeTypeWalker, psl::parser_database::ScalarFieldType},
 };
 
 pub fn scalar_selections_fn(
