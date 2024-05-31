@@ -19,13 +19,6 @@ pub fn fetch_builder_fn(model_name_snake: &Ident) -> TokenStream {
 }
 
 pub fn model_data(model: ModelWalker, args: &GenerateArgs) -> ModelModulePart {
-    // Save the dmmf to /tmp/dmmf.json
-    {
-        use std::io::Write;
-        let serialized_dmmf = serde_json::to_string(&args.dmmf.schema).unwrap();
-        let mut file = std::fs::File::create("/tmp/dmmf.json").unwrap();
-        file.write_all(serialized_dmmf.as_bytes());
-    }
     let pcr = quote!(::prisma_client_rust);
 
     let (order_by_relation_aggregate_param, aggregate_field_stuff) = args
@@ -96,7 +89,8 @@ pub fn model_data(model: ModelWalker, args: &GenerateArgs) -> ModelModulePart {
     let (order_by_with_relation_param, relation_field_stuff) = args
         .dmmf
         .schema
-        .find_input_type(&format!("{}OrderByWithRelationInput", model.name()))
+        .find_input_type(&format!("{}OrderByWithRelationAndSearchRelevanceInput", model.name()))
+        .or(args.dmmf.schema.find_input_type(&format!("{}OrderByWithRelationInput", model.name())))
         .map(|input_type| {
             let ((variants, into_pv_arms), field_stuff): ((Vec<_>, Vec<_>), Vec<_>) = input_type
                 .fields
