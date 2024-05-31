@@ -25,7 +25,7 @@ proc-macro2 = "1.0.39"
 thiserror = "1.0.37"
 
 query-structure = { workspace = true }
-request-handlers = { workspace = true }
+request-handlers = { workspace = true, features = ["graphql-protocol"] }
 query-core = { workspace = true, features = ["graphql-protocol"] }
 dmmf = { workspace = true }
 psl = { workspace = true }
