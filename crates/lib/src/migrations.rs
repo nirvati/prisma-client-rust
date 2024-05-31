@@ -73,7 +73,12 @@ impl<'a> Future for DbPush<'a> {
 
                 let input = SchemaPushInput {
                     force: accept_data_loss,
-                    schema: datamodel,
+                    schema: SchemasContainer {
+                        files: vec![SchemaContainer {
+                            path: "schema.prisma".to_string(),
+                            content: datamodel,
+                        }],
+                    },
                 };
 
                 let output = engine_state
