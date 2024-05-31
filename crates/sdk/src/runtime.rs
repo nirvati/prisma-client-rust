@@ -61,6 +61,13 @@ impl GeneratorMetadata {
                     let dmmf = serde_path_to_error::deserialize(deserializer)
                         .expect("Failed to deserialize DMMF from Prisma engines");
 
+                    // Save the dmmf to /tmp/dmmf.json
+                    {
+                        use std::io::Write;
+                        let serialized_dmmf = serde_json::to_string(&dmmf).unwrap();
+                        let file = std::fs::File::create("/tmp/dmmf.json").unwrap();
+                        file.write_all(&serialized_dmmf);
+                    }
                     match self.generate(dmmf) {
                         Ok(_) => jsonrpc::ResponseData::Result(serde_json::Value::Null),
                         Err(e) => jsonrpc::ResponseData::Error {
