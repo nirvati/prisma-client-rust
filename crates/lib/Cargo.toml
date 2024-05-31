@@ -20,12 +20,12 @@ migrations = [
 mocking = ["tokio"]
 # mutation-callbacks = []
 
-mssql = ["schema-core/mssql", "request-handlers/mssql", "prisma-client-rust-sdk/mssql"]
-mysql = ["schema-core/mysql", "request-handlers/mysql", "prisma-client-rust-sdk/mysql"]
-postgresql = ["schema-core/postgresql", "request-handlers/postgresql", "prisma-client-rust-sdk/postgresql"]
-sqlite = ["schema-core/sqlite", "request-handlers/sqlite", "prisma-client-rust-sdk/sqlite"]
+mssql = ["schema-core/mssql", "request-handlers/mssql"]
+mysql = ["schema-core/mysql", "request-handlers/mysql"]
+postgresql = ["schema-core/postgresql", "request-handlers/postgresql"]
+sqlite = ["schema-core/sqlite", "request-handlers/sqlite"]
 
-mongodb = ["schema-core/mongodb", "request-handlers/mongodb", "prisma-client-rust-sdk/mongodb"]
+mongodb = ["schema-core/mongodb", "request-handlers/mongodb"]
 
 [dependencies]
 serde.workspace = true
@@ -42,7 +42,6 @@ tokio = { version = "1.21.0", optional = true }
 futures = "0.3"
 paste = "1.0.11"
 prisma-client-rust-generator-macros = { path = "../generator-macros" }
-prisma-client-rust-sdk = { path = "../sdk" }
 
 query-structure = { workspace = true }
 user-facing-errors = { workspace = true }
