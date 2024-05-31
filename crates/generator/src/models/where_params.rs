@@ -65,7 +65,7 @@ impl Variant {
             field_required_type: field
                 .scalar_field_type()
                 .to_tokens(
-                    module_path,
+                    &quote! { crate::#module_path },
                     &match field.ast_field().arity {
                         FieldArity::Optional => FieldArity::Required,
                         a => a,
@@ -285,8 +285,8 @@ pub fn model_data(
             let ((field_defs, field_types), (prisma_values, field_names_snake)):
                 ((Vec<_>, Vec<_>), (Vec<_>, Vec<_>)) = fields.into_iter().map(|field| {
                 let field_type = match field.ast_field().arity {
-                    FieldArity::List | FieldArity::Required => field.type_tokens(module_path),
-                    FieldArity::Optional => field.scalar_field_type().to_tokens(module_path, &FieldArity::Required, field.db)
+                    FieldArity::List | FieldArity::Required => field.type_tokens(&quote! { crate::#module_path }),
+                    FieldArity::Optional => field.scalar_field_type().to_tokens(&quote! { crate::#module_path }, &FieldArity::Required, field.db)
                 }.unwrap();
 
                 let field_name_snake = snake_ident(field.name());
