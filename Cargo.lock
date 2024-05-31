@@ -5001,7 +5001,7 @@ dependencies = [
  "dotenvy",
  "futures",
  "include_dir",
- "indexmap 1.9.3",
+ "indexmap 2.2.6",
  "paste",
  "prisma-client-rust-generator-macros",
  "psl",
