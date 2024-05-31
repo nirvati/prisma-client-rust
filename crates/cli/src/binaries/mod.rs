@@ -12,7 +12,7 @@ use std::process::Command;
 
 pub static PRISMA_CLI_VERSION: &str = "5.14.0";
 // commit hash of prisma/prisma-engines, not brendonovich/prisma-engines
-pub static ENGINE_VERSION: &str = "bc6a413fd8e8ac96fe2d38ac698e70e75a56222d";
+pub static ENGINE_VERSION: &str = "9ee43833e58f4ec014ce0f45b6ae27ee7e0165fc";
 pub static BASE_DIR_NAME: &str = "prisma/binaries";
 
 pub struct Engine<'a> {
