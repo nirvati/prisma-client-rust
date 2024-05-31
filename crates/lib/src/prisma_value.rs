@@ -140,7 +140,7 @@ impl From<PrismaValue> for query_structure::PrismaValue {
             PrismaValue::Int(value) => Self::Int(value as i64),
             PrismaValue::Uuid(value) => Self::Uuid(value),
             PrismaValue::List(value) => Self::List(value.into_iter().map(Into::into).collect()),
-            PrismaValue::Json(value) => Self::Json(value),
+            PrismaValue::Json(value) => Self::Json(serde_json::to_string(&value).unwrap()),
             PrismaValue::Object(value) => {
                 Self::Object(value.into_iter().map(|(k, v)| (k, v.into())).collect())
             }
