@@ -4,7 +4,7 @@ pub use include_dir;
 pub use schema_core::CoreError;
 use schema_core::{
     commands,
-    json_rpc::types::{ApplyMigrationsInput, MarkMigrationAppliedInput, SchemaPushInput},
+    json_rpc::types::{ApplyMigrationsInput, MarkMigrationAppliedInput, SchemaPushInput, SchemasContainer, SchemaContainer},
     EngineState, GenericApi,
 };
 use thiserror::Error;
