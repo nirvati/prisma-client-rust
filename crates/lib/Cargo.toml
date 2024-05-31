@@ -20,10 +20,10 @@ migrations = [
 mocking = ["tokio"]
 # mutation-callbacks = []
 
-mssql = ["schema-core/mssql", "request-handlers/mssql"]
-mysql = ["schema-core/mysql", "request-handlers/mysql"]
-postgresql = ["schema-core/postgresql", "request-handlers/postgresql"]
-sqlite = ["schema-core/sqlite", "request-handlers/sqlite"]
+mssql = ["schema-core/mssql", "request-handlers/mssql-native"]
+mysql = ["schema-core/mysql", "request-handlers/mysql-native"]
+postgresql = ["schema-core/postgresql", "request-handlers/postgresql-native"]
+sqlite = ["schema-core/sqlite", "request-handlers/sqlite-native"]
 
 mongodb = ["schema-core/mongodb", "request-handlers/mongodb"]
 
