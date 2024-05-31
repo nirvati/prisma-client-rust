@@ -6,13 +6,13 @@ edition = "2021"
 rust-version = "1.62"
 
 [features]
-mysql = ["request-handlers/mysql-native"]
-sqlite = ["request-handlers/sqlite-native"]
-mssql = ["request-handlers/mssql-native"]
-postgresql = ["request-handlers/postgresql-native"]
-cockroachdb = ["request-handlers/cockroachdb-native"]
+mysql = ["request-handlers/mysql-native", "psl/mysql"]
+sqlite = ["request-handlers/sqlite-native", "psl/sqlite"]
+mssql = ["request-handlers/mssql-native", "psl/mssql"]
+postgresql = ["request-handlers/postgresql-native", "psl/postgresql"]
+cockroachdb = ["request-handlers/cockroachdb-native", "psl/cockroachdb"]
 
-mongodb = ["request-handlers/mongodb"]
+mongodb = ["request-handlers/mongodb", "psl/mongodb"]
 
 [dependencies]
 serde_json.workspace = true
