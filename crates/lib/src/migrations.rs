@@ -4,7 +4,10 @@ pub use include_dir;
 pub use schema_core::CoreError;
 use schema_core::{
     commands,
-    json_rpc::types::{ApplyMigrationsInput, MarkMigrationAppliedInput, SchemaPushInput, SchemasContainer, SchemaContainer},
+    json_rpc::types::{
+        ApplyMigrationsInput, MarkMigrationAppliedInput, SchemaContainer, SchemaPushInput,
+        SchemasContainer,
+    },
     EngineState, GenericApi,
 };
 use thiserror::Error;
@@ -62,7 +65,13 @@ impl<'a> Future for DbPush<'a> {
             let accept_data_loss = self.accept_data_loss;
 
             self.fut = Some(Box::pin(async move {
-                let engine_state = EngineState::new(Some(datamodel.clone()), None);
+                let engine_state = EngineState::new(
+                    Some(vec![(
+                        "schema.prisma".to_owned(),
+                        SourceFile::from(datamodel.clone()),
+                    )]),
+                    None,
+                );
 
                 if force_reset {
                     engine_state
@@ -187,7 +196,13 @@ impl<'a> Future for MigrateDeploy<'a> {
                     .extract(&temp_dir)
                     .map_err(MigrateDeployError::ExtractMigrations)?;
 
-                let engine_state = EngineState::new(Some(datamodel.to_string()), None);
+                let engine_state = EngineState::new(
+                    Some(vec![(
+                        "schema.prisma".to_owned(),
+                        SourceFile::from(datamodel.to_string()),
+                    )]),
+                    None,
+                );
 
                 let input = ApplyMigrationsInput {
                     migrations_directory_path: temp_dir.to_string(),
@@ -262,7 +277,13 @@ pub async fn migrate_resolve(
         .extract(&temp_dir)
         .map_err(MigrateResolveError::ExtractMigrations)?;
 
-    let engine_state = EngineState::new(Some(datamodel.to_string()), None);
+    let engine_state = EngineState::new(
+        Some(vec![(
+            "schema.prisma".to_owned(),
+            SourceFile::from(datamodel.to_string()),
+        )]),
+        None,
+    );
 
     let input = MarkMigrationAppliedInput {
         migration_name: migration.to_string(),
