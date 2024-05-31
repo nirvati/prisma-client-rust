@@ -392,11 +392,11 @@ impl DmmfInputFieldExt for DmmfInputField {
                     .to_tokens(),
             ),
             TypeLocation::EnumTypes => {
-                let typ: TokenStream = input_type.typ.parse().unwrap();
+                let typ = pascal_ident(&input_type.typ);
                 arity.wrap_type(&quote!(#prefix #typ))
             }
             TypeLocation::InputObjectTypes => {
-                let typ: TokenStream = input_type.typ.parse().unwrap();
+                let typ = pascal_ident(&input_type.typ);
                 quote!(Vec<#prefix #typ>)
             }
             _ => todo!(),
