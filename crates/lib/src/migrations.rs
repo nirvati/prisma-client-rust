@@ -12,6 +12,7 @@ use schema_core::{
 };
 use thiserror::Error;
 use tokio::fs::remove_dir_all;
+use psl::SourceFile;
 
 type BoxedFuture<T> = Pin<Box<dyn Future<Output = T> + Send>>;
 
