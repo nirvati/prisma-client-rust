@@ -64,6 +64,7 @@ pub fn generate(args: &GenerateArgs) -> TokenStream {
     });
 
     let raw_queries = match args.connector.name() {
+        #[cfg(feature = "mongodb")]
         name if psl::builtin_connectors::MONGODB.name() == name => {
             quote! {
                 pub fn _run_command_raw<T: #pcr::Data>(&self, command: #pcr::serde_json::Value) -> #pcr::RunCommandRaw<T> {
