@@ -65,8 +65,8 @@ impl GeneratorMetadata {
                     {
                         use std::io::Write;
                         let serialized_dmmf = serde_json::to_string(&dmmf).unwrap();
-                        let file = std::fs::File::create("/tmp/dmmf.json").unwrap();
-                        file.write_all(&serialized_dmmf);
+                        let mut file = std::fs::File::create("/tmp/dmmf.json").unwrap();
+                        file.write_all(serialized_dmmf.as_bytes());
                     }
                     match self.generate(dmmf) {
                         Ok(_) => jsonrpc::ResponseData::Result(serde_json::Value::Null),
