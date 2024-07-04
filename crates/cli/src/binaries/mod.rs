@@ -2,7 +2,7 @@ pub mod platform;
 
 use directories::BaseDirs;
 use flate2::read::GzDecoder;
-use http::StatusCode;
+use reqwest::StatusCode;
 use reqwest::blocking as reqwest;
 use std::fs::{copy, create_dir_all, metadata, File};
 use std::io;
