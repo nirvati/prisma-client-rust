@@ -30,7 +30,7 @@ mongodb = ["schema-core/mongodb", "request-handlers/mongodb"]
 [dependencies]
 serde.workspace = true
 serde_json.workspace = true
-chrono = { version = "0.4.19", features = ["serde"] }
+chrono = { version = "0.4.19", features = ["serde"], default-features = false }
 thiserror = "1.0.30"
 bigdecimal = { version = "0.4", features = ["serde"] }
 bigdecimal_03 = { package = "bigdecimal", version = "0.3" }

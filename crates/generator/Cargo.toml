@@ -30,7 +30,7 @@ directories = "4.0.1"
 flate2 = "1.0.23"
 reqwest = { version = "0.12.5", features = [
     "blocking",
-    "rustls-tls-native-roots",
+    "native-tls",
 ] }
 regex = "1.5.5"
 thiserror = "1.0.37"
