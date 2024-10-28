@@ -28,6 +28,7 @@ pub enum PrismaValue {
     Uuid(Uuid),
     List(Vec<PrismaValue>),
     Json(scalar_types::Json),
+    RawJson(prisma_value::RawJson),
     Object(Vec<(String, PrismaValue)>),
     #[serde(serialize_with = "serialize_null")]
     Null,
@@ -48,6 +49,7 @@ pub enum Item {
     List(Vec<Item>),
     Value(PrismaValue),
     Json(serde_json::Value),
+    RawJson(RawJson),
 }
 
 impl From<PrismaItem> for Item {
@@ -59,6 +61,7 @@ impl From<PrismaItem> for Item {
             PrismaItem::List(list) => Item::List(list.into_iter().map(|v| v.into()).collect()),
             PrismaItem::Value(scalar) => Item::Value(scalar.into()),
             PrismaItem::Json(json) => Item::Json(json),
+            PrismaItem::RawJson(json) => Item::RawJson(json),
             PrismaItem::Ref(arc) => Arc::try_unwrap(arc)
                 .unwrap_or_else(|arc| (*arc).to_owned())
                 .into(),
