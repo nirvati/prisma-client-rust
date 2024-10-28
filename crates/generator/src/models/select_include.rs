@@ -60,7 +60,7 @@ fn field_module_enum(field: FieldWalker, variant: Variant) -> Option<TokenStream
     let variant_pascal = pascal_ident(&variant.to_string());
     let variant_param = variant.param();
 
-    field.refine().and_then(|refined| match refined {
+    field.refine().map(|refined| match refined {
         RefinedFieldWalker::Relation(relation_field) => {
             let relation_model_name_snake = snake_ident(relation_field.related_model().name());
 
