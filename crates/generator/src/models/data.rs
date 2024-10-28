@@ -125,6 +125,7 @@ pub fn r#struct(model: ModelWalker) -> TokenStream {
                     pub #field_name_snake: #field_name_snake::Type
                 }
             }
+            None => panic!("Encountered unknown type"),
         });
 
     let relation_accessors = model.fields().filter_map(|field| field.refine().and_then(|refined| match refined {
