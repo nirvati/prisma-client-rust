@@ -14,14 +14,14 @@ resolver = "2"
 [workspace.dependencies]
 prisma-client-rust = { path = "crates/lib" }
 
-diagnostics = { git = "https://github.com/AaronDewes/prisma-engines", branch = "main" }
-dmmf = { git = "https://github.com/AaronDewes/prisma-engines", branch = "main" }
-query-structure = { git = "https://github.com/AaronDewes/prisma-engines", branch = "main" }
-psl = { git = "https://github.com/AaronDewes/prisma-engines", branch = "main" }
-query-core = { git = "https://github.com/AaronDewes/prisma-engines", branch = "main" }
-schema-core = { git = "https://github.com/AaronDewes/prisma-engines", branch = "main" }
-request-handlers = { git = "https://github.com/AaronDewes/prisma-engines", branch = "main" }
-user-facing-errors = { git = "https://github.com/AaronDewes/prisma-engines", branch = "main" }
+diagnostics = { git = "https://github.com/nirvati/prisma-engines", branch = "main" }
+dmmf = { git = "https://github.com/nirvati/prisma-engines", branch = "main" }
+query-structure = { git = "https://github.com/nirvati/prisma-engines", branch = "main" }
+psl = { git = "https://github.com/nirvati/prisma-engines", branch = "main" }
+query-core = { git = "https://github.com/nirvati/prisma-engines", branch = "main" }
+schema-core = { git = "https://github.com/nirvati/prisma-engines", branch = "main" }
+request-handlers = { git = "https://github.com/nirvati/prisma-engines", branch = "main" }
+user-facing-errors = { git = "https://github.com/nirvati/prisma-engines", branch = "main" }
 
 serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"
