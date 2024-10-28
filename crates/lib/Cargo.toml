@@ -33,7 +33,6 @@ serde_json.workspace = true
 chrono = { version = "0.4.19", features = ["serde"], default-features = false }
 thiserror = "1.0.30"
 bigdecimal = { version = "0.4", features = ["serde"] }
-bigdecimal_03 = { package = "bigdecimal", version = "0.3" }
 uuid = { version = "1", features = ["serde"] }
 indexmap = { version = "2", features = ["serde"] }
 serde-value = "0.7.0"

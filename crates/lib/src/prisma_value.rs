@@ -147,10 +147,10 @@ impl From<PrismaValue> for query_structure::PrismaValue {
             PrismaValue::Null => Self::Null,
             PrismaValue::DateTime(value) => Self::DateTime(value),
             PrismaValue::Decimal(value) => {
-                Self::Float(bigdecimal_03::BigDecimal::from_str(&value.to_string()).unwrap())
+                Self::Float(bigdecimal::BigDecimal::from_str(&value.to_string()).unwrap())
             }
             PrismaValue::Float(value) => {
-                Self::Float(bigdecimal_03::BigDecimal::from_f64(value).unwrap())
+                Self::Float(bigdecimal::BigDecimal::from_f64(value).unwrap())
             }
             PrismaValue::BigInt(value) => Self::BigInt(value),
             PrismaValue::Bytes(value) => Self::Bytes(value),
