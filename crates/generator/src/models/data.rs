@@ -18,7 +18,7 @@ pub fn model_data(model: ModelWalker) -> ModelModulePart {
 
             let name = field.name().to_string();
             let (typ, recursive_safe_typ) = match field.refine() {
-                RefinedFieldWalker::Relation(relation_field) => {
+                Some(RefinedFieldWalker::Relation(relation_field)) => {
                     let relation_model_name_snake =
                         snake_ident(relation_field.related_model().name());
 
@@ -35,7 +35,7 @@ pub fn model_data(model: ModelWalker) -> ModelModulePart {
 
                     typ
                 }
-                RefinedFieldWalker::Scalar(scalar_field) => {
+                Some(RefinedFieldWalker::Scalar(scalar_field)) => {
                     match scalar_field.scalar_field_type() {
                         ScalarFieldType::CompositeType(id) => {
                             let comp_type = field.db.walk(id);
@@ -87,7 +87,7 @@ pub fn r#struct(model: ModelWalker) -> TokenStream {
         .fields()
         .filter(|f| f.ast_field().field_type.as_unsupported().is_none())
         .map(|field| match field.refine() {
-            RefinedFieldWalker::Relation(field) => {
+            Some(RefinedFieldWalker::Relation(field)) => {
                 let field_name_str = field.name();
                 let field_name_snake = snake_ident(field_name_str);
 
@@ -115,7 +115,7 @@ pub fn r#struct(model: ModelWalker) -> TokenStream {
                     pub #field_name_snake: Option<#field_name_snake::RecursiveSafeType>
                 }
             }
-            RefinedFieldWalker::Scalar(field) => {
+            Some(RefinedFieldWalker::Scalar(field)) => {
                 let field_name_str = field.name();
                 let field_name_snake = snake_ident(field_name_str);
 

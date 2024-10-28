@@ -25,7 +25,7 @@ impl<'a> ModelExt<'a> for ModelWalker<'a> {
     fn required_scalar_fields(self) -> Vec<FieldWalker<'a>> {
         self.fields()
             .filter(|&f| {
-                f.required_on_create() && matches!(f.refine(), RefinedFieldWalker::Relation(_))
+                f.required_on_create() && matches!(f.refine(), Some(RefinedFieldWalker::Relation(_)))
             })
             .collect()
     }
@@ -44,12 +44,12 @@ pub trait FieldExt<'a> {
 impl<'a> FieldExt<'a> for FieldWalker<'a> {
     fn type_tokens(self, prefix: &TokenStream) -> Option<TokenStream> {
         match self.refine() {
-            RefinedFieldWalker::Scalar(scalar_field) => scalar_field.scalar_field_type().to_tokens(
+            Some(RefinedFieldWalker::Scalar(scalar_field)) => scalar_field.scalar_field_type().to_tokens(
                 prefix,
                 &self.ast_field().arity,
                 &self.db,
             ),
-            RefinedFieldWalker::Relation(relation_field) => {
+            Some(RefinedFieldWalker::Relation(relation_field)) => {
                 let related_model_name_snake = snake_ident(relation_field.related_model().name());
 
                 Some(
@@ -58,13 +58,15 @@ impl<'a> FieldExt<'a> for FieldWalker<'a> {
                         .wrap_type(&quote!(#prefix::#related_model_name_snake::Data)),
                 )
             }
+            None => panic!("Encountered unknown type"),
         }
     }
 
     fn type_prisma_value(self, var: &Ident) -> Option<TokenStream> {
         match self.refine() {
-            RefinedFieldWalker::Scalar(scalar_field) => scalar_field.type_prisma_value(var),
-            RefinedFieldWalker::Relation(_) => None,
+            Some(RefinedFieldWalker::Scalar(scalar_field)) => scalar_field.type_prisma_value(var),
+            Some(RefinedFieldWalker::Relation(_)) => None,
+            None => panic!("Encountered unknown type"),
         }
     }
 
@@ -79,8 +81,9 @@ impl<'a> FieldExt<'a> for FieldWalker<'a> {
     fn required_on_create(self) -> bool {
         self.ast_field().arity.is_required()
             && match self.refine() {
-                RefinedFieldWalker::Scalar(scalar_field) => scalar_field.required_on_create(),
-                RefinedFieldWalker::Relation(_) => true,
+                Some(RefinedFieldWalker::Scalar(scalar_field)) => scalar_field.required_on_create(),
+                Some(RefinedFieldWalker::Relation(_)) => true,
+                None => panic!("Encountered unknown type"),
             }
     }
 }

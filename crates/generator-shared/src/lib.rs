@@ -101,8 +101,8 @@ impl FieldTuple {
         let field_name_snake = snake_ident(field.name());
 
         let arity = match field.refine() {
-            RefinedFieldWalker::Scalar(_) => Arity::Scalar,
-            RefinedFieldWalker::Relation(relation_field) => {
+            Some(RefinedFieldWalker::Scalar(_)) => Arity::Scalar,
+            Some(RefinedFieldWalker::Relation(relation_field)) => {
                 let related_model_name_snake = snake_ident(relation_field.related_model().name());
 
                 let relation_arity = match &field.ast_field().arity {
@@ -116,6 +116,7 @@ impl FieldTuple {
                     relation_arity,
                 )
             }
+            None => panic!("Encountered unknown type"),
         };
 
         FieldTuple {

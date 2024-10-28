@@ -71,7 +71,7 @@ fn field_set_params(
     let mut functions = vec![];
 
     let field_module_contents = match field.refine() {
-        RefinedFieldWalker::Scalar(scalar_field) => match scalar_field.scalar_field_type() {
+        Some(RefinedFieldWalker::Scalar(scalar_field)) => match scalar_field.scalar_field_type() {
             ScalarFieldType::CompositeType(id) => {
                 let comp_type = field.db.walk(id);
                 let comp_type_snake = snake_ident(comp_type.name());
@@ -441,7 +441,7 @@ fn field_set_params(
                 }
             }
         },
-        RefinedFieldWalker::Relation(relation_field) => {
+        Some(RefinedFieldWalker::Relation(relation_field)) => {
             let (v, f): (Vec<_>, Vec<_>) = relation_field_set_params(relation_field).iter().map(|param| {
                 let action = param.action;
                 let relation_model_name_snake = snake_ident(relation_field.related_model().name());
@@ -577,6 +577,7 @@ fn field_set_params(
 
             (field.name().to_string(), base)
         }
+        None => panic!("Encountered unknown type"),
     };
 
     Some((variants, functions, field_module_contents))

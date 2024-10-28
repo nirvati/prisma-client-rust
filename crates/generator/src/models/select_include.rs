@@ -60,7 +60,7 @@ fn field_module_enum(field: FieldWalker, variant: Variant) -> Option<TokenStream
     let variant_pascal = pascal_ident(&variant.to_string());
     let variant_param = variant.param();
 
-    Some(match field.refine() {
+    field.refine().and_then(|refined| match refined {
         RefinedFieldWalker::Relation(relation_field) => {
             let relation_model_name_snake = snake_ident(relation_field.related_model().name());
 
@@ -234,7 +234,7 @@ pub mod include {
             Variant::Include,
             model
                 .fields()
-                .filter(|f| matches!(f.refine(), RefinedFieldWalker::Relation(_))),
+                .filter(|f| matches!(f.refine(), Some(RefinedFieldWalker::Relation(_)))),
         );
 
         let r#enum = super::model_module_enum(model, Variant::Include);

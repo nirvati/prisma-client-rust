@@ -32,16 +32,17 @@ pub fn required_fields<'a>(model: ModelWalker<'a>) -> Option<Vec<RequiredField<'
     model
         .fields()
         .filter(|field| match field.refine() {
-            RefinedFieldWalker::Scalar(scalar_field) => match scalar_field.scalar_field_type() {
+            Some(RefinedFieldWalker::Scalar(scalar_field)) => match scalar_field.scalar_field_type() {
                 ScalarFieldType::CompositeType(_) => field.required_on_create(),
                 _ => !model.scalar_field_has_relation(scalar_field) && field.required_on_create(),
             },
-            RefinedFieldWalker::Relation(_) => field.required_on_create(),
+            Some(RefinedFieldWalker::Relation(_)) => field.required_on_create(),
+            None => false,
         })
         .map(|field| {
             Some({
                 let typ = match field.refine() {
-                    RefinedFieldWalker::Scalar(scalar_field) => {
+                    Some(RefinedFieldWalker::Scalar(scalar_field)) => {
                         match scalar_field.scalar_field_type() {
                             ScalarFieldType::CompositeType(id) => {
                                 let comp_type = model.db.walk(id);
@@ -53,17 +54,19 @@ pub fn required_fields<'a>(model: ModelWalker<'a>) -> Option<Vec<RequiredField<'
                             _ => field.type_tokens(&quote!(super::))?,
                         }
                     }
-                    RefinedFieldWalker::Relation(relation_field) => {
+                    Some(RefinedFieldWalker::Relation(relation_field)) => {
                         let relation_model_name_snake =
                             snake_ident(relation_field.related_model().name());
 
                         quote!(super::#relation_model_name_snake::UniqueWhereParam)
                     }
+                    None => unreachable!(),
                 };
 
                 let push_wrapper = match field.refine() {
-                    RefinedFieldWalker::Scalar(_) => quote!(set),
-                    RefinedFieldWalker::Relation(_) => quote!(connect),
+                    Some(RefinedFieldWalker::Scalar(_)) => quote!(set),
+                    Some(RefinedFieldWalker::Relation(_)) => quote!(connect),
+                    None => unreachable!(),
                 };
 
                 RequiredField {

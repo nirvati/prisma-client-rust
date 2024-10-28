@@ -403,7 +403,7 @@ pub fn field_module(
     let arity = field.ast_field().arity;
 
     let field_module_contents = match field.refine() {
-        RefinedFieldWalker::Relation(relation_field) => {
+        Some(RefinedFieldWalker::Relation(relation_field)) => {
             let relation_model_name_snake = snake_ident(relation_field.related_model().name());
 
             if let FieldArity::Optional = arity {
@@ -453,7 +453,7 @@ pub fn field_module(
                 #relation_methods
             }
         }
-        RefinedFieldWalker::Scalar(scalar_field) => match scalar_field.scalar_field_type() {
+        Some(RefinedFieldWalker::Scalar(scalar_field)) => match scalar_field.scalar_field_type() {
             ScalarFieldType::CompositeType(cf_id) => {
                 let comp_type = field.db.walk(cf_id);
 
@@ -726,6 +726,7 @@ pub fn field_module(
                 }
             }
         },
+        None => panic!("Encountered unknown type"),
     };
 
     (
