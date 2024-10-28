@@ -28,7 +28,6 @@ pub enum PrismaValue {
     Uuid(Uuid),
     List(Vec<PrismaValue>),
     Json(scalar_types::Json),
-    RawJson(prisma_value::RawJson),
     Object(Vec<(String, PrismaValue)>),
     #[serde(serialize_with = "serialize_null")]
     Null,
