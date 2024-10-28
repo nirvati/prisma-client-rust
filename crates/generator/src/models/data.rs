@@ -58,7 +58,7 @@ pub fn model_data(model: ModelWalker) -> ModelModulePart {
                             typ
                         }
                         _ => (field.type_tokens(&quote!(super::super::))?, None),
-                    },
+                    }
                 },
                 None => panic!("Encountered unknown type"),
             };
@@ -127,7 +127,7 @@ pub fn r#struct(model: ModelWalker) -> TokenStream {
             }
         });
 
-    let relation_accessors = model.fields().filter_map(|field| match field.refine() {
+    let relation_accessors = model.fields().filter_map(|field| field.refine().and_then(|refined| match refined {
         RefinedFieldWalker::Relation(relation_field) => {
             let field_name_snake = snake_ident(field.name());
             let relation_model_name_snake = snake_ident(&relation_field.related_model().name());
@@ -154,7 +154,7 @@ pub fn r#struct(model: ModelWalker) -> TokenStream {
             })
         }
         _ => None,
-    });
+    }));
 
     let specta_derive = cfg!(feature = "specta").then(|| {
         let model_name_pascal_str = pascal_ident(model.name()).to_string();
