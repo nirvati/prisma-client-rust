@@ -59,8 +59,8 @@ pub fn model_data(model: ModelWalker) -> ModelModulePart {
                         }
                         _ => (field.type_tokens(&quote!(super::super::))?, None),
                     },
-                    None => panic!("Encountered unknown type"),
-                }
+                },
+                None => panic!("Encountered unknown type"),
             };
 
             let recursive_safe_typ = recursive_safe_typ.unwrap_or_else(|| quote!(Type));
