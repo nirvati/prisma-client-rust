@@ -48,7 +48,7 @@ pub enum Item {
     List(Vec<Item>),
     Value(PrismaValue),
     Json(serde_json::Value),
-    RawJson(prisma_value::RawJson),
+    RawJson(query_structure::RawJson),
 }
 
 impl From<PrismaItem> for Item {
