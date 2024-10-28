@@ -58,7 +58,8 @@ pub fn model_data(model: ModelWalker) -> ModelModulePart {
                             typ
                         }
                         _ => (field.type_tokens(&quote!(super::super::))?, None),
-                    }
+                    },
+                    None => panic!("Encountered unknown type"),
                 }
             };
 
