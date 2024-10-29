@@ -17,7 +17,7 @@ mongodb = ["request-handlers/mongodb", "psl/mongodb"]
 [dependencies]
 serde_json.workspace = true
 serde.workspace = true
-convert_case = "0.5.0"
+convert_case = "0.6"
 serde_path_to_error = "0.1.7"
 quote = "1.0.18"
 syn = "2"
