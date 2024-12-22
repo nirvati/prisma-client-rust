@@ -194,7 +194,7 @@ impl PrismaClientInternals {
             request_handlers::load_executor(request_handlers::ConnectorKind::Rust {
                 url: url.clone(),
                 datasource: source,
-            }, config.preview_features()).await?;
+            }, config.preview_features(), true).await?;
 
         executor.primary_connector().get_connection().await?;
 
